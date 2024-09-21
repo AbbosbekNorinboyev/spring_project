@@ -1,0 +1,80 @@
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:sec1="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head th:fragment="head(title,links)">
+    <meta charset="UTF-8">
+    <th:block th:replace="${title}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <th:block th:replace="${links}" />
+</head>
+
+
+
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <img width="100" height="100" sec:authorize="isAuthenticated()" th:src="@{'/user/image/'+${#authentication.getName()}+'.jpeg'}" alt="404" />
+            <a sec:authorize="isAnonymous()" th:text="#{appName}" class="navbar-brand" href="/">Weather App </a>
+            <a sec:authorize="isAuthenticated()" class="navbar-brand mx-5" href="/" th:text="${#authentication.getName()}" style="color: red"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active btn btn-success" th:text="#{cityList}" aria-current="page" href="/city/list">All my city</a>
+                    </li>
+
+                    <li class="nav-item" style="margin-right: 300px">
+                        <a class="nav-link btn btn-primary mx-3" th:text="#{subsCity}" href="/city/subscribedCities">Subscribed cities</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link btn btn-success mx-1" href="?lang=uz">UZ</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link btn btn-danger mx-1" href="?lang=eng_us">ENG</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link btn btn-primary mx-1" href="?lang=russian">RU</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a sec:authorize="isAuthenticated()" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                           class="nav-link btn btn-primary mx-3" th:text="#{adminPage}" href="/admin">Admin page</a>
+                    </li>
+
+                    <li class="nav-item mx-5">
+                        <a style="margin-left: 300px" th:href="@{/auth/login}" class="btn btn-success"
+                           sec:authorize="isAnonymous()" th:text="#{login}"
+                        >Login</a>
+                        <a th:href="@{/auth/register}" th:text="#{Register}" class="btn btn-primary" sec:authorize="isAnonymous()">Register</a>
+                        <a th:href="@{/auth/logout}" th:text="#{logout}" class="btn btn-danger" sec:authorize="isAuthenticated()">Logout </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+<section th:fragment="js">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+</section>
+
+</html>

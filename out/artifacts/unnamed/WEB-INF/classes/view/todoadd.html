@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>Todo ADD</title>
+    <link rel="stylesheet" href="/style/todoadd.css">
+
+</head>
+<body class="container app">
+<h3 class="my-5">Create todo here fill blanks</h3>
+<form action="/todo/add/post" method="post" th:object="${todo}">
+    <label>
+        <input class="form-control" type="text" name="title" placeholder="enter title" th:field="*{title}">
+    </label>
+    <div th:if="${#fields.hasErrors('title')}">
+        <span th:each="er : ${#fields.errors('title')}" th:text="${er}" style="color: red;"></span>
+    </div>
+
+    <label>
+        <input type="text" class="form-control" name="priority" placeholder="enter priority">
+    </label>
+    <div th:if="${#fields.hasErrors('priority')}">
+        <span th:each="er : ${#fields.errors('priority')}" th:text="${er}" style="color: red;" th:field="*{priority}"></span>
+    </div>
+    <br>
+    <div class="my-3">
+        <button class="btn btn-success" type="submit">Save</button>
+        <a href="/todo/list" class="btn btn-warning">Back</a>
+    </div>
+
+</form>
+</body>
+</html>

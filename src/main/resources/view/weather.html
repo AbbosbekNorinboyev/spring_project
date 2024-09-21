@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>City Weather Page</title>
+    <link rel="stylesheet" href="/style/home.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="navbar :: header"></div>
+    <a class="btn btn-success" th:href="@{/admin/add/weather/{id}(id=${city_id})}">Add Weather</a>
+    <table class="my-5 table table-dark">
+        <thead class="table table-success">
+        <tr>
+            <th>ID</th>
+            <th>CITY_ID</th>
+            <th>CELSIUS</th>
+            <th>FAHRENHEIT</th>
+            <th>DATE</th>
+            <th sec:authorize="isAuthenticated()" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">ACTION</th>
+        </tr>
+        </thead>
+
+        <tbody class="table table-primary">
+        <tr th:each="weather : ${weathers}">
+            <td th:text="${weather.getId()}"></td>
+            <td th:text="${weather.getCity_id()}"></td>
+            <td th:text="${weather.getCelsius()}"></td>
+            <td th:text="${weather.getFahrenheit()}"></td>
+            <td th:text="${weather.getDates()}"></td>
+            <td sec:authorize="isAuthenticated()" th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                class="d-flex">
+                <a th:href="@{/admin/delete/weather/{id}(id=${weather.getId()})}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </a>
+                <a th:href="@{/admin/update/weather/{id}(id=${weather.getId()})}" class="btn btn-warning">Update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="navbar :: js"></div>
+</body>
+</html>

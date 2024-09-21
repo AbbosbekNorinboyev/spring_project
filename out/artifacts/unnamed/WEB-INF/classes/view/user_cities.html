@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>Cities</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="navbar :: header"></div>
+
+
+    <table class="my-5 table table-dark">
+        <thead class="table table-success">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>COUNTRY</th>
+            <th>ACTION</th>
+        </tr>
+        </thead>
+
+        <tbody class="table table-primary">
+        <tr th:each="city : ${cities}">
+            <td th:text="${city.getId()}"></td>
+            <td th:text="${city.getName()}"></td>
+            <td th:text="${city.getCountry()}"></td>
+            <td>
+                <form
+                        th:action="@{/weather/subscribe/{city_name}/{city_id}(city_name=${city.getName()}, city_id=${city.getId()})}" method="post">
+                    <button type="submit" class="btn btn-success">Subscribe</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>

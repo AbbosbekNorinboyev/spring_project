@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>User Details Page</title>
+    <link rel="stylesheet" href="/style/home.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="navbar :: header"></div>
+    <h4>User inactive</h4>
+
+    <ul class="card bg-success">
+        <li th:text="${user.getId()}"></li>
+        <li th:text="${user.getUsername()}"></li>
+        <li th:text="${user.getRole()}"></li>
+    </ul>
+
+<!--    <div th:each="city : ${cities}">-->
+<!--        <h3 th:text="${city.getId()}"></h3>-->
+<!--        <h3 th:text="${city.getCity_id()}"></h3>-->
+<!--        <h3 th:text="${city.getCity_name()}"></h3>-->
+<!--    </div>-->
+
+</div>
+</body>
+</html>

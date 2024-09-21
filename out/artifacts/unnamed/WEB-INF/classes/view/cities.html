@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>Cities</title>
+    <link rel="stylesheet" href="/style/home.css">
+</head>
+<body>
+<div class="container">
+    <div th:replace="navbar :: header"></div>
+
+    <a class="btn btn-success" href="/admin/add/city">Add city</a>
+
+    <table class="my-5 table table-dark">
+        <thead class="table table-success">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>COUNTRY</th>
+            <th>CREATED_BY</th>
+            <th>ACTION</th>
+        </tr>
+        </thead>
+
+        <tbody class="table table-primary">
+        <tr th:each="city : ${cities}">
+            <td th:text="${city.getId()}"></td>
+            <td th:text="${city.getName()}"></td>
+            <td th:text="${city.getCountry()}"></td>
+            <td th:text="${city.getCreated_by()}"></td>
+            <td class="d-flex">
+                <form th:action="@{/admin/delete/city/{id}(id=${city.getId()})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+                <a th:href="@{/admin/update/city/{id}(id=${city.getId()})}" class="btn btn-warning">Update</a>
+
+                <a th:href="@{/admin/weather/city/{id}(id=${city.getId()})}" class="btn btn-primary">Weather</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<div th:replace="navbar :: js"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <title>Update Weather Page</title>
+    <link rel="stylesheet" href="/style/todoupdate.css"/>
+</head>
+<body>
+
+<div class="container m-5">
+    <form th:action="@{/admin/update/weather/{id}(id=${weather.getId()})}" method="post">
+        <label>
+            <input th:value="${weather.getCelsius()}" class="form-control" name="celsius" placeholder="celsius"/>
+        </label>
+
+        <label>
+            <input th:value="${weather.getFahrenheit()}" class="form-control" name="celsius" placeholder="fahrenheit"/>
+        </label>
+
+        <div class="my-3">
+            <button class="btn btn-success" type="submit">Update</button>
+            <a href="/admin/cities/list" class="btn btn-warning">Back</a>
+        </div>
+    </form>
+</div>
+
+<h1 th:replace="navbar :: js"></h1>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="navbar :: head(~{::title}, ~{::link})">
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="/style/home.css">
+</head>
+<body style="background: antiquewhite">
+<div class="container my-5">
+    <h1 class="my-3" style="text-align: center">Register Page</h1>
+    <form method="post" action="/auth/register" enctype="multipart/form-data" th:object="${dto}">
+
+        <!--        <ul th:if="${#fields.hasAnyErrors()}">-->
+        <!--            <li th:each="err : ${#fields.errors()}" th:text="${err}" class="red"></li>-->
+        <!--        </ul>-->
+
+        <label class="mx-5" for="uname">Upload your image</label>
+        <input class="form-control w-75 mx-5" type="file" name="file" id="file" th:field="*{file}" >
+
+        <div th:if="${#fields.hasErrors('file')}">
+            <span th:each="er : ${#fields.errors('file')}" th:text="${er}" style="color: red;"></span>
+        </div>
+
+        <label class="mx-5" for="uname"> Username</label>
+
+        <input class="form-control w-75 mx-5" type="text" name="username" id="uname" th:field="*{username}">
+        <div th:if="${#fields.hasErrors('username')}">
+            <span th:each="er : ${#fields.errors('username')}" th:text="${er}" style="color: red;"></span>
+        </div>
+
+
+        <label class="mx-5" for="pswd"> User password</label>
+        <input class="form-control w-75 mx-5" type="password" name="password" id="pswd" th:field="*{password}">
+        <div th:if="${#fields.hasErrors('password')}">
+            <span th:each="er : ${#fields.errors('password')}" th:text="${er}" style="color: red;"></span>
+        </div>
+
+        <button class="btn btn-success mx-5 my-3" type="submit">Register</button>
+        <a href="/" class="btn btn-primary">Back to home</a>
+
+    </form>
+</div>
+</body>
+</html>
